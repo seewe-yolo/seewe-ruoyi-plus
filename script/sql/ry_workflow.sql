@@ -311,6 +311,9 @@ insert into sys_menu VALUES (1761400000000011641, '请假申请修改', 17614000
 insert into sys_menu VALUES (1761400000000011642, '请假申请删除', 1761400000000011638, 4, '#', '', '', 'N', 'Y', 'F', '0', '0', 'workflow:leave:remove', '#', '', '', 1761000000000000103, 1761100000000000001, sysdate(), NULL, NULL, '');
 insert into sys_menu VALUES (1761400000000011643, '请假申请导出', 1761400000000011638, 5, '#', '', '', 'N', 'Y', 'F', '0', '0', 'workflow:leave:export', '#', '', '', 1761000000000000103, 1761100000000000001, sysdate(), NULL, NULL, '');
 
+-- RuoYi-Plus-Soybean 管理端需要禁用的工作流页面
+UPDATE `sys_menu` SET `status` = '1' WHERE `menu_id` IN (1761400000000011616, 1761400000000011618, 1761400000000011638, 1761400000000011700, 1761400000000011701);
+
 INSERT INTO sys_dict_type VALUES (1761500000000000013, '业务状态', 'wf_business_status', 1761000000000000103, 1761100000000000001, sysdate(), NULL, NULL, '业务状态列表');
 INSERT INTO sys_dict_type VALUES (1761500000000000014, '表单类型', 'wf_form_type', 1761000000000000103, 1761100000000000001, sysdate(), NULL, NULL, '表单类型列表');
 INSERT INTO sys_dict_type VALUES (1761500000000000015, '任务状态', 'wf_task_status', 1761000000000000103, 1761100000000000001, sysdate(), NULL, NULL, '任务状态');
@@ -335,4 +338,3 @@ INSERT INTO sys_dict_data VALUES (1761600000000000056, 9, '抄送', 'copy', 'wf_
 INSERT INTO sys_dict_data VALUES (1761600000000000057, 10, '加签', 'sign', 'wf_task_status', '', 'primary', 'N', 1761000000000000103, 1761100000000000001, sysdate(), NULL, NULL, '加签');
 INSERT INTO sys_dict_data VALUES (1761600000000000058, 11, '减签', 'sign_off', 'wf_task_status', '', 'danger', 'N', 1761000000000000103, 1761100000000000001, sysdate(), NULL, NULL, '减签');
 INSERT INTO sys_dict_data VALUES (1761600000000000059, 11, '超时', 'timeout', 'wf_task_status', '', 'danger', 'N', 1761000000000000103, 1761100000000000001, sysdate(), NULL, NULL, '超时');
-

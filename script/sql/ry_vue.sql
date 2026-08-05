@@ -63,19 +63,10 @@ create table sys_dept (
 -- ----------------------------
 
 
-insert into sys_dept values(1761000000000000100, 0, '0', 'XXX科技', null, 0, null, '15888888888', 'xxx@qq.com', '0', '0', 1761000000000000103, 1761100000000000001, sysdate(), null, null);
-insert into sys_dept values(1761000000000000101, 1761000000000000100, '0,1761000000000000100', '深圳总公司', null, 1, null, '15888888888', 'xxx@qq.com', '0', '0', 1761000000000000103, 1761100000000000001, sysdate(), null, null);
-insert into sys_dept values(1761000000000000102, 1761000000000000100, '0,1761000000000000100', '长沙分公司', null, 2, null, '15888888888', 'xxx@qq.com', '0', '0', 1761000000000000103, 1761100000000000001, sysdate(), null, null);
-insert into sys_dept values(1761000000000000103, 1761000000000000101, '0,1761000000000000100,1761000000000000101', '研发部门', null, 1, 1761100000000000001, '15888888888', 'xxx@qq.com', '0', '0', 1761000000000000103, 1761100000000000001, sysdate(), null, null);
-insert into sys_dept values(1761000000000000104, 1761000000000000101, '0,1761000000000000100,1761000000000000101', '市场部门', null, 2, null, '15888888888', 'xxx@qq.com', '0', '0', 1761000000000000103, 1761100000000000001, sysdate(), null, null);
-insert into sys_dept values(1761000000000000105, 1761000000000000101, '0,1761000000000000100,1761000000000000101', '测试部门', null, 3, null, '15888888888', 'xxx@qq.com', '0', '0', 1761000000000000103, 1761100000000000001, sysdate(), null, null);
-insert into sys_dept values(1761000000000000106, 1761000000000000101, '0,1761000000000000100,1761000000000000101', '财务部门', null, 4, null, '15888888888', 'xxx@qq.com', '0', '0', 1761000000000000103, 1761100000000000001, sysdate(), null, null);
-insert into sys_dept values(1761000000000000107, 1761000000000000101, '0,1761000000000000100,1761000000000000101', '运维部门', null, 5, null, '15888888888', 'xxx@qq.com', '0', '0', 1761000000000000103, 1761100000000000001, sysdate(), null, null);
-insert into sys_dept values(1761000000000000108, 1761000000000000102, '0,1761000000000000100,1761000000000000102', '市场部门', null, 1, null, '15888888888', 'xxx@qq.com', '0', '0', 1761000000000000103, 1761100000000000001, sysdate(), null, null);
-insert into sys_dept values(1761000000000000109, 1761000000000000102, '0,1761000000000000100,1761000000000000102', '财务部门', null, 2, null, '15888888888', 'xxx@qq.com', '0', '0', 1761000000000000103, 1761100000000000001, sysdate(), null, null);
-
 
 -- ----------------------------
+insert into sys_dept values(1761000000000000100, 0, '0', '总公司', null, 0, null, null, null, '0', '0', null, 1761100000000000001, sysdate(), null, null);
+
 -- 2、用户信息表
 -- ----------------------------
 create table sys_user (
@@ -109,10 +100,7 @@ create table sys_user (
 -- ----------------------------
 -- 初始化-用户信息表数据
 -- ----------------------------
-insert into sys_user values(1761100000000000001, 1761000000000000103, 'admin', '疯狂的狮子Li', 'sys_user', 'crazyLionLi@163.com', '15888888888', '1', null, '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', sysdate(), 1761000000000000103, 1761100000000000001, sysdate(), null, null, '管理员');
-insert into sys_user values(1761100000000000003, 1761000000000000108, 'test', '本部门及以下 密码666666', 'sys_user', '', '', '0', null, '$2a$10$b8yUzN0C71sbz.PhNOCgJe.Tu1yWC3RNrTyjSQ8p1W0.aaUXUJ.Ne', '0', '0', '127.0.0.1', sysdate(), 1761000000000000103, 1761100000000000001, sysdate(), 1761100000000000003, sysdate(), null);
-insert into sys_user values(1761100000000000004, 1761000000000000102, 'test1', '仅本人 密码666666', 'sys_user', '', '', '0', null, '$2a$10$b8yUzN0C71sbz.PhNOCgJe.Tu1yWC3RNrTyjSQ8p1W0.aaUXUJ.Ne', '0', '0', '127.0.0.1', sysdate(), 1761000000000000103, 1761100000000000001, sysdate(), 1761100000000000004, sysdate(), null);
-
+insert into sys_user values(1761100000000000001, 1761000000000000100, 'admin', '疯狂的狮子Li', 'sys_user', 'crazyLionLi@163.com', '15888888888', '1', null, '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', sysdate(), 1761000000000000100, 1761100000000000001, sysdate(), null, null, '管理员');
 -- ----------------------------
 -- 3、岗位信息表
 -- ----------------------------
@@ -172,10 +160,7 @@ create table sys_role (
 -- ----------------------------
 -- 初始化-角色信息表数据
 -- ----------------------------
-insert into sys_role values(1761300000000000001, '超级管理员', 'superadmin', 1, 1, 1, 1, '0', '0', 1761000000000000103, 1761100000000000001, sysdate(), null, null, '超级管理员');
-insert into sys_role values(1761300000000000003, '本部门及以下', 'test1', 3, 4, 1, 1, '0', '0', 1761000000000000103, 1761100000000000001, sysdate(), null, null, '');
-insert into sys_role values(1761300000000000004, '仅本人', 'test2', 4, 5, 1, 1, '0', '0', 1761000000000000103, 1761100000000000001, sysdate(), null, null, '');
-
+insert into sys_role values(1761300000000000001, '超级管理员', 'superadmin', 1, 1, 1, 1, '0', '0', null, 1761100000000000001, sysdate(), null, null, '超级管理员');
 -- ----------------------------
 -- 5、菜单权限表
 -- ----------------------------
@@ -212,9 +197,7 @@ create table sys_menu (
 insert into sys_menu values(1761400000000000001, '系统管理', 0, 1, 'system', null, '', 'N', 'Y', 'M', '0', '0', '', 'system', '', '', 1761000000000000103, 1761100000000000001, sysdate(), null, null, '系统管理目录');
 insert into sys_menu values(1761400000000000002, '系统监控', 0, 3, 'monitor', null, '', 'N', 'Y', 'M', '0', '0', '', 'monitor', '', '', 1761000000000000103, 1761100000000000001, sysdate(), null, null, '系统监控目录');
 insert into sys_menu values(1761400000000000003, '系统工具', 0, 4, 'tool', null, '', 'N', 'Y', 'M', '0', '0', '', 'tool', '', '', 1761000000000000103, 1761100000000000001, sysdate(), null, null, '系统工具目录');
-insert into sys_menu values(1761400000000000005, '测试菜单', 0, 5, 'demo', null, '', 'N', 'Y', 'M', '0', '0', '', 'star', '', '', 1761000000000000103, 1761100000000000001, sysdate(), null, null, '测试菜单');
-insert into sys_menu values(1761400000000000008, 'AI会话',  0, 8, 'aichat', 'ai/chat/index', '', 'N', 'Y', 'C', '0', '0', '', 'checkbox', '', '', 1761000000000000103, 1761100000000000001, sysdate(), null, null, 'AI聊天菜单');
-insert into sys_menu values(1761400000000000004, 'PLUS官网', 0, 9, 'https://gitee.com/dromara/RuoYi-Vue-Plus', null, '', 'Y', 'Y', 'M', '0', '0', '', 'guide', '', '', 1761000000000000103, 1761100000000000001, sysdate(), null, null, 'RuoYi-Vue-Plus官网地址');
+insert into sys_menu values(1761400000000000008, 'AI会话',  0, 8, 'aichat', 'ai/chat/index', '', 'N', 'Y', 'C', '0', '0', '', 'tabler:message-chatbot', '', '', 1761000000000000103, 1761100000000000001, sysdate(), null, null, 'AI聊天菜单');
 -- 二级菜单
 insert into sys_menu values(1761400000000000100, '用户管理', 1761400000000000001, 1, 'user', 'system/user/index', '', 'N', 'Y', 'C', '0', '0', 'system:user:list', 'user', '', '', 1761000000000000103, 1761100000000000001, sysdate(), null, null, '用户管理菜单');
 insert into sys_menu values(1761400000000000101, '角色管理', 1761400000000000001, 2, 'role', 'system/role/index', '', 'N', 'Y', 'C', '0', '0', 'system:role:list', 'peoples', '', '', 1761000000000000103, 1761100000000000001, sysdate(), null, null, '角色管理菜单');
@@ -241,7 +224,7 @@ insert into sys_menu values(1761400000000000118, '文件管理', 176140000000000
 -- snail-job server控制台
 insert into sys_menu values(1761400000000000120, '任务调度中心', 1761400000000000002, 6, 'snailjob', 'monitor/snailjob/index', '', 'N', 'Y', 'C', '0', '0', 'monitor:snailjob:list', 'job', '', '', 1761000000000000103, 1761100000000000001, sysdate(), null, null, 'SnailJob控制台菜单');
 -- snail-ai server控制台
-insert into sys_menu values(1761400000000000121, 'AI控制台', 1761400000000000002, 7, 'snailai', 'monitor/snailai/index', '', 'N', 'Y', 'C', '0', '0', 'monitor:snailai:list', 'checkbox', '', '', 1761000000000000103, 1761100000000000001, sysdate(), null, null, 'AI控制台菜单');
+insert into sys_menu values(1761400000000000121, 'AI控制台', 1761400000000000002, 7, 'snailai', 'monitor/snailai/index', '', 'N', 'Y', 'C', '0', '0', 'monitor:snailai:list', 'tabler:brain', '', '', 1761000000000000103, 1761100000000000001, sysdate(), null, null, 'AI控制台菜单');
 
 -- 三级菜单
 insert into sys_menu values(1761400000000000500, '操作日志', 1761400000000000108, 1, 'operlog', 'monitor/operlog/index', '', 'N', 'Y', 'C', '0', '0', 'monitor:operlog:list', 'form', '', '', 1761000000000000103, 1761100000000000001, sysdate(), null, null, '操作日志菜单');
@@ -329,20 +312,6 @@ insert into sys_menu values(1761400000000001062, '客户端管理新增', 176140
 insert into sys_menu values(1761400000000001063, '客户端管理修改', 1761400000000000123, 3, '#', '', '', 'N', 'Y', 'F', '0', '0', 'system:client:edit', '#', '', '', 1761000000000000103, 1761100000000000001, sysdate(), null, null, '');
 insert into sys_menu values(1761400000000001064, '客户端管理删除', 1761400000000000123, 4, '#', '', '', 'N', 'Y', 'F', '0', '0', 'system:client:remove', '#', '', '', 1761000000000000103, 1761100000000000001, sysdate(), null, null, '');
 insert into sys_menu values(1761400000000001065, '客户端管理导出', 1761400000000000123, 5, '#', '', '', 'N', 'Y', 'F', '0', '0', 'system:client:export', '#', '', '', 1761000000000000103, 1761100000000000001, sysdate(), null, null, '');
--- 测试菜单
-insert into sys_menu values(1761400000000001500, '测试单表', 1761400000000000005, 1, 'demo', 'demo/demo/index', '', 'N', 'Y', 'C', '0', '0', 'demo:demo:list', '#', '', '', 1761000000000000103, 1761100000000000001, sysdate(), null, null, '测试单表菜单');
-insert into sys_menu values(1761400000000001501, '测试单表查询', 1761400000000001500, 1, '#', '', '', 'N', 'Y', 'F', '0', '0', 'demo:demo:query', '#', '', '', 1761000000000000103, 1761100000000000001, sysdate(), null, null, '');
-insert into sys_menu values(1761400000000001502, '测试单表新增', 1761400000000001500, 2, '#', '', '', 'N', 'Y', 'F', '0', '0', 'demo:demo:add', '#', '', '', 1761000000000000103, 1761100000000000001, sysdate(), null, null, '');
-insert into sys_menu values(1761400000000001503, '测试单表修改', 1761400000000001500, 3, '#', '', '', 'N', 'Y', 'F', '0', '0', 'demo:demo:edit', '#', '', '', 1761000000000000103, 1761100000000000001, sysdate(), null, null, '');
-insert into sys_menu values(1761400000000001504, '测试单表删除', 1761400000000001500, 4, '#', '', '', 'N', 'Y', 'F', '0', '0', 'demo:demo:remove', '#', '', '', 1761000000000000103, 1761100000000000001, sysdate(), null, null, '');
-insert into sys_menu values(1761400000000001505, '测试单表导出', 1761400000000001500, 5, '#', '', '', 'N', 'Y', 'F', '0', '0', 'demo:demo:export', '#', '', '', 1761000000000000103, 1761100000000000001, sysdate(), null, null, '');
-insert into sys_menu values(1761400000000001506, '测试树表', 1761400000000000005, 1, 'tree', 'demo/tree/index', '', 'N', 'Y', 'C', '0', '0', 'demo:tree:list', '#', '', '', 1761000000000000103, 1761100000000000001, sysdate(), null, null, '测试树表菜单');
-insert into sys_menu values(1761400000000001507, '测试树表查询', 1761400000000001506, 1, '#', '', '', 'N', 'Y', 'F', '0', '0', 'demo:tree:query', '#', '', '', 1761000000000000103, 1761100000000000001, sysdate(), null, null, '');
-insert into sys_menu values(1761400000000001508, '测试树表新增', 1761400000000001506, 2, '#', '', '', 'N', 'Y', 'F', '0', '0', 'demo:tree:add', '#', '', '', 1761000000000000103, 1761100000000000001, sysdate(), null, null, '');
-insert into sys_menu values(1761400000000001509, '测试树表修改', 1761400000000001506, 3, '#', '', '', 'N', 'Y', 'F', '0', '0', 'demo:tree:edit', '#', '', '', 1761000000000000103, 1761100000000000001, sysdate(), null, null, '');
-insert into sys_menu values(1761400000000001510, '测试树表删除', 1761400000000001506, 4, '#', '', '', 'N', 'Y', 'F', '0', '0', 'demo:tree:remove', '#', '', '', 1761000000000000103, 1761100000000000001, sysdate(), null, null, '');
-insert into sys_menu values(1761400000000001511, '测试树表导出', 1761400000000001506, 5, '#', '', '', 'N', 'Y', 'F', '0', '0', 'demo:tree:export', '#', '', '', 1761000000000000103, 1761100000000000001, sysdate(), null, null, '');
-
 -- ----------------------------
 -- 6、用户和角色关联表  用户N-1角色
 -- ----------------------------
@@ -357,9 +326,6 @@ create table sys_user_role (
 -- 初始化-用户和角色关联表数据
 -- ----------------------------
 insert into sys_user_role values (1761100000000000001, 1761300000000000001);
-insert into sys_user_role values (1761100000000000003, 1761300000000000003);
-insert into sys_user_role values (1761100000000000004, 1761300000000000004);
-
 -- ----------------------------
 -- 7、角色和菜单关联表  角色1-N菜单
 -- ----------------------------
@@ -372,124 +338,6 @@ create table sys_role_menu (
 -- ----------------------------
 -- 初始化-角色和菜单关联表数据
 -- ----------------------------
-insert into sys_role_menu values (1761300000000000003, 1761400000000000001);
-insert into sys_role_menu values (1761300000000000003, 1761400000000000005);
-insert into sys_role_menu values (1761300000000000003, 1761400000000000100);
-insert into sys_role_menu values (1761300000000000003, 1761400000000000101);
-insert into sys_role_menu values (1761300000000000003, 1761400000000000102);
-insert into sys_role_menu values (1761300000000000003, 1761400000000000103);
-insert into sys_role_menu values (1761300000000000003, 1761400000000000104);
-insert into sys_role_menu values (1761300000000000003, 1761400000000000105);
-insert into sys_role_menu values (1761300000000000003, 1761400000000000106);
-insert into sys_role_menu values (1761300000000000003, 1761400000000000107);
-insert into sys_role_menu values (1761300000000000003, 1761400000000000108);
-insert into sys_role_menu values (1761300000000000003, 1761400000000000118);
-insert into sys_role_menu values (1761300000000000003, 1761400000000000123);
-insert into sys_role_menu values (1761300000000000003, 1761400000000000130);
-insert into sys_role_menu values (1761300000000000003, 1761400000000000131);
-insert into sys_role_menu values (1761300000000000003, 1761400000000000133);
-insert into sys_role_menu values (1761300000000000003, 1761400000000000500);
-insert into sys_role_menu values (1761300000000000003, 1761400000000000501);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001001);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001002);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001003);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001004);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001005);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001006);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001007);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001008);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001009);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001010);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001011);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001012);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001013);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001014);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001015);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001016);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001017);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001018);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001019);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001020);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001021);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001022);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001023);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001024);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001025);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001026);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001027);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001028);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001029);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001030);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001031);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001032);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001033);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001034);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001035);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001036);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001037);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001038);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001039);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001040);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001041);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001042);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001043);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001044);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001045);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001050);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001061);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001062);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001063);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001064);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001065);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001500);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001501);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001502);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001503);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001504);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001505);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001506);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001507);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001508);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001509);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001510);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001511);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001600);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001601);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001602);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001603);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001620);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001621);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001622);
-insert into sys_role_menu values (1761300000000000003, 1761400000000001623);
-insert into sys_role_menu values (1761300000000000003, 1761400000000011616);
-insert into sys_role_menu values (1761300000000000003, 1761400000000011618);
-insert into sys_role_menu values (1761300000000000003, 1761400000000011619);
-insert into sys_role_menu values (1761300000000000003, 1761400000000011622);
-insert into sys_role_menu values (1761300000000000003, 1761400000000011623);
-insert into sys_role_menu values (1761300000000000003, 1761400000000011629);
-insert into sys_role_menu values (1761300000000000003, 1761400000000011632);
-insert into sys_role_menu values (1761300000000000003, 1761400000000011633);
-insert into sys_role_menu values (1761300000000000003, 1761400000000011638);
-insert into sys_role_menu values (1761300000000000003, 1761400000000011639);
-insert into sys_role_menu values (1761300000000000003, 1761400000000011640);
-insert into sys_role_menu values (1761300000000000003, 1761400000000011641);
-insert into sys_role_menu values (1761300000000000003, 1761400000000011642);
-insert into sys_role_menu values (1761300000000000003, 1761400000000011643);
-insert into sys_role_menu values (1761300000000000003, 1761400000000011701);
-insert into sys_role_menu values (1761300000000000004, 1761400000000000005);
-insert into sys_role_menu values (1761300000000000004, 1761400000000001500);
-insert into sys_role_menu values (1761300000000000004, 1761400000000001501);
-insert into sys_role_menu values (1761300000000000004, 1761400000000001502);
-insert into sys_role_menu values (1761300000000000004, 1761400000000001503);
-insert into sys_role_menu values (1761300000000000004, 1761400000000001504);
-insert into sys_role_menu values (1761300000000000004, 1761400000000001505);
-insert into sys_role_menu values (1761300000000000004, 1761400000000001506);
-insert into sys_role_menu values (1761300000000000004, 1761400000000001507);
-insert into sys_role_menu values (1761300000000000004, 1761400000000001508);
-insert into sys_role_menu values (1761300000000000004, 1761400000000001509);
-insert into sys_role_menu values (1761300000000000004, 1761400000000001510);
-insert into sys_role_menu values (1761300000000000004, 1761400000000001511);
-
 -- ----------------------------
 -- 8、角色和部门关联表  角色1-N部门
 -- ----------------------------
@@ -869,66 +717,100 @@ insert into sys_client values (1762000000000000001, 'e5cd7e4891bf95d1d19206ce24a
 insert into sys_client values (1762000000000000002, '428a8310cd442757ae699df5d894f051', 'app', 'app123', 'password,sms,social', 'android', '/app/**', null, 1800, 604800, 0, 0, 1761000000000000103, 1761100000000000001, sysdate(), 1761100000000000001, sysdate());
 
 
-CREATE TABLE test_demo
-(
-    id          bigint(0)    NOT NULL COMMENT '主键',
-    dept_id     bigint(0)    NULL DEFAULT NULL COMMENT '部门id',
-    user_id     bigint(0)    NULL DEFAULT NULL COMMENT '用户id',
-    order_num   int(0)       NULL DEFAULT 0 COMMENT '排序号',
-    test_key    varchar(255) NULL DEFAULT NULL COMMENT 'key键',
-    value       varchar(255) NULL DEFAULT NULL COMMENT '值',
-    version     int(0)       NULL DEFAULT 0 COMMENT '版本',
-    create_dept bigint(0)    NULL DEFAULT NULL COMMENT '创建部门',
-    create_time datetime(0)  NULL DEFAULT NULL COMMENT '创建时间',
-    create_by   bigint(0)    NULL DEFAULT NULL COMMENT '创建人',
-    update_time datetime(0)  NULL DEFAULT NULL COMMENT '更新时间',
-    update_by   bigint(0)    NULL DEFAULT NULL COMMENT '更新人',
-    del_flag    int(0)       NULL DEFAULT 0 COMMENT '删除标志',
-    PRIMARY KEY (id) USING BTREE
-) ENGINE = InnoDB COMMENT = '测试单表';
 
-CREATE TABLE test_tree
-(
-    id          bigint(0)    NOT NULL COMMENT '主键',
-    parent_id   bigint(0)    NULL DEFAULT 0 COMMENT '父id',
-    dept_id     bigint(0)    NULL DEFAULT NULL COMMENT '部门id',
-    user_id     bigint(0)    NULL DEFAULT NULL COMMENT '用户id',
-    tree_name   varchar(255) NULL DEFAULT NULL COMMENT '值',
-    version     int(0)       NULL DEFAULT 0 COMMENT '版本',
-    create_dept bigint(0)    NULL DEFAULT NULL COMMENT '创建部门',
-    create_time datetime(0)  NULL DEFAULT NULL COMMENT '创建时间',
-    create_by   bigint(0)    NULL DEFAULT NULL COMMENT '创建人',
-    update_time datetime(0)  NULL DEFAULT NULL COMMENT '更新时间',
-    update_by   bigint(0)    NULL DEFAULT NULL COMMENT '更新人',
-    del_flag    int(0)       NULL DEFAULT 0 COMMENT '删除标志',
-    PRIMARY KEY (id) USING BTREE
-) ENGINE = InnoDB COMMENT = '测试树表';
+-- ----------------------------
+-- RuoYi-Plus-Soybean 管理端菜单与字典适配
+-- 来源: seesoy-ui/docs/sql/sys_menu.sql, seesoy-ui/docs/sql/sys_dict_data.sql
+-- ----------------------------
 
-INSERT INTO test_demo VALUES (1762100000000000001, 1761000000000000102, 1761100000000000004, 1, '测试数据权限', '测试', 0, 1761000000000000103, sysdate(), 1761100000000000001, NULL, NULL, 0);
-INSERT INTO test_demo VALUES (1762100000000000002, 1761000000000000102, 1761100000000000003, 2, '子节点1', '111', 0, 1761000000000000103, sysdate(), 1761100000000000001, NULL, NULL, 0);
-INSERT INTO test_demo VALUES (1762100000000000003, 1761000000000000102, 1761100000000000003, 3, '子节点2', '222', 0, 1761000000000000103, sysdate(), 1761100000000000001, NULL, NULL, 0);
-INSERT INTO test_demo VALUES (1762100000000000004, 1761000000000000108, 1761100000000000004, 4, '测试数据', 'demo', 0, 1761000000000000103, sysdate(), 1761100000000000001, NULL, NULL, 0);
-INSERT INTO test_demo VALUES (1762100000000000005, 1761000000000000108, 1761100000000000003, 13, '子节点11', '1111', 0, 1761000000000000103, sysdate(), 1761100000000000001, NULL, NULL, 0);
-INSERT INTO test_demo VALUES (1762100000000000006, 1761000000000000108, 1761100000000000003, 12, '子节点22', '2222', 0, 1761000000000000103, sysdate(), 1761100000000000001, NULL, NULL, 0);
-INSERT INTO test_demo VALUES (1762100000000000007, 1761000000000000108, 1761100000000000003, 11, '子节点33', '3333', 0, 1761000000000000103, sysdate(), 1761100000000000001, NULL, NULL, 0);
-INSERT INTO test_demo VALUES (1762100000000000008, 1761000000000000108, 1761100000000000003, 10, '子节点44', '4444', 0, 1761000000000000103, sysdate(), 1761100000000000001, NULL, NULL, 0);
-INSERT INTO test_demo VALUES (1762100000000000009, 1761000000000000108, 1761100000000000003, 9, '子节点55', '5555', 0, 1761000000000000103, sysdate(), 1761100000000000001, NULL, NULL, 0);
-INSERT INTO test_demo VALUES (1762100000000000010, 1761000000000000108, 1761100000000000003, 8, '子节点66', '6666', 0, 1761000000000000103, sysdate(), 1761100000000000001, NULL, NULL, 0);
-INSERT INTO test_demo VALUES (1762100000000000011, 1761000000000000108, 1761100000000000003, 7, '子节点77', '7777', 0, 1761000000000000103, sysdate(), 1761100000000000001, NULL, NULL, 0);
-INSERT INTO test_demo VALUES (1762100000000000012, 1761000000000000108, 1761100000000000003, 6, '子节点88', '8888', 0, 1761000000000000103, sysdate(), 1761100000000000001, NULL, NULL, 0);
-INSERT INTO test_demo VALUES (1762100000000000013, 1761000000000000108, 1761100000000000003, 5, '子节点99', '9999', 0, 1761000000000000103, sysdate(), 1761100000000000001, NULL, NULL, 0);
+-- 目录类型菜单
+UPDATE `sys_menu` SET `component` = 'Layout', `icon` = 'carbon:cloud-service-management', `menu_name` = 'route.system' WHERE `menu_id` = 1761400000000000001;
+UPDATE `sys_menu` SET `component` = 'Layout', `icon` = 'stash:dashboard', `menu_name` = 'route.monitor' WHERE `menu_id` = 1761400000000000002;
+UPDATE `sys_menu` SET `component` = 'Layout', `icon` = 'tabler:tools', `menu_name` = 'route.tool' WHERE `menu_id` = 1761400000000000003;
+UPDATE `sys_menu` SET `component` = 'Layout', `icon` = 'tabler:logs', `menu_name` = 'menu.system_log' WHERE `menu_id` = 1761400000000000108;
 
-INSERT INTO test_tree VALUES (1762200000000000001, 0, 1761000000000000102, 1761100000000000004, '测试数据权限', 0, 1761000000000000103, sysdate(), 1761100000000000001, NULL, NULL, 0);
-INSERT INTO test_tree VALUES (1762200000000000002, 1762200000000000001, 1761000000000000102, 1761100000000000003, '子节点1', 0, 1761000000000000103, sysdate(), 1761100000000000001, NULL, NULL, 0);
-INSERT INTO test_tree VALUES (1762200000000000003, 1762200000000000002, 1761000000000000102, 1761100000000000003, '子节点2', 0, 1761000000000000103, sysdate(), 1761100000000000001, NULL, NULL, 0);
-INSERT INTO test_tree VALUES (1762200000000000004, 0, 1761000000000000108, 1761100000000000004, '测试树1', 0, 1761000000000000103, sysdate(), 1761100000000000001, NULL, NULL, 0);
-INSERT INTO test_tree VALUES (1762200000000000005, 1762200000000000004, 1761000000000000108, 1761100000000000003, '子节点11', 0, 1761000000000000103, sysdate(), 1761100000000000001, NULL, NULL, 0);
-INSERT INTO test_tree VALUES (1762200000000000006, 1762200000000000004, 1761000000000000108, 1761100000000000003, '子节点22', 0, 1761000000000000103, sysdate(), 1761100000000000001, NULL, NULL, 0);
-INSERT INTO test_tree VALUES (1762200000000000007, 1762200000000000004, 1761000000000000108, 1761100000000000003, '子节点33', 0, 1761000000000000103, sysdate(), 1761100000000000001, NULL, NULL, 0);
-INSERT INTO test_tree VALUES (1762200000000000008, 1762200000000000005, 1761000000000000108, 1761100000000000003, '子节点44', 0, 1761000000000000103, sysdate(), 1761100000000000001, NULL, NULL, 0);
-INSERT INTO test_tree VALUES (1762200000000000009, 1762200000000000006, 1761000000000000108, 1761100000000000003, '子节点55', 0, 1761000000000000103, sysdate(), 1761100000000000001, NULL, NULL, 0);
-INSERT INTO test_tree VALUES (1762200000000000010, 1762200000000000007, 1761000000000000108, 1761100000000000003, '子节点66', 0, 1761000000000000103, sysdate(), 1761100000000000001, NULL, NULL, 0);
-INSERT INTO test_tree VALUES (1762200000000000011, 1762200000000000007, 1761000000000000108, 1761100000000000003, '子节点77', 0, 1761000000000000103, sysdate(), 1761100000000000001, NULL, NULL, 0);
-INSERT INTO test_tree VALUES (1762200000000000012, 1762200000000000010, 1761000000000000108, 1761100000000000003, '子节点88', 0, 1761000000000000103, sysdate(), 1761100000000000001, NULL, NULL, 0);
-INSERT INTO test_tree VALUES (1762200000000000013, 1762200000000000010, 1761000000000000108, 1761100000000000003, '子节点99', 0, 1761000000000000103, sysdate(), 1761100000000000001, NULL, NULL, 0);
+-- 页面类型
+UPDATE `sys_menu` SET `icon` = 'ic:round-manage-accounts', `menu_name` = 'route.system_user' WHERE `menu_id` = 1761400000000000100;
+UPDATE `sys_menu` SET `icon` = 'carbon:user-role', `menu_name` = 'route.system_role' WHERE `menu_id` = 1761400000000000101;
+UPDATE `sys_menu` SET `icon` = 'material-symbols:route', `menu_name` = 'route.system_menu' WHERE `menu_id` = 1761400000000000102;
+UPDATE `sys_menu` SET `icon` = 'mingcute:department-line', `menu_name` = 'route.system_dept' WHERE `menu_id` = 1761400000000000103;
+UPDATE `sys_menu` SET `icon` = 'hugeicons:permanent-job', `menu_name` = 'route.system_post' WHERE `menu_id` = 1761400000000000104;
+UPDATE `sys_menu` SET `icon` = 'qlementine-icons:dictionary-16', `menu_name` = 'route.system_dict' WHERE `menu_id` = 1761400000000000105;
+UPDATE `sys_menu` SET `icon` = 'carbon:parameter', `menu_name` = 'route.system_config' WHERE `menu_id` = 1761400000000000106;
+UPDATE `sys_menu` SET `icon` = 'solar:chat-line-outline', `menu_name` = 'route.system_notice' WHERE `menu_id` = 1761400000000000107;
+UPDATE `sys_menu` SET `icon` = 'majesticons:status-online-line', `menu_name` = 'route.monitor_online' WHERE `menu_id` = 1761400000000000109;
+UPDATE `sys_menu` SET `icon` = 'simple-icons:redis', `menu_name` = 'route.monitor_cache' WHERE `menu_id` = 1761400000000000113;
+UPDATE `sys_menu` SET `icon` = 'material-symbols:code-blocks-outline', `menu_name` = 'route.tool_gen' WHERE `menu_id` = 1761400000000000115;
+UPDATE `sys_menu` SET `icon` = 'material-symbols:attach-file', `menu_name` = 'route.system_oss' WHERE `menu_id` = 1761400000000000118;
+UPDATE `sys_menu` SET `icon` = 'tabler:device-imac-cog', `menu_name` = 'route.system_client' WHERE `menu_id` = 1761400000000000123;
+UPDATE `sys_menu` SET `icon` = 'carbon:operations-record', `menu_name` = 'route.monitor_operlog' WHERE `menu_id` = 1761400000000000500;
+UPDATE `sys_menu` SET `icon` = 'tabler:login-2', `menu_name` = 'route.monitor_logininfo' WHERE `menu_id` = 1761400000000000501;
+UPDATE `sys_menu` SET `path` = 'oss/config', `component` = 'system/oss-config/index', `icon` = 'hugeicons:configuration-01', `menu_name` = 'route.system_oss-config' WHERE `menu_id` = 1761400000000000133;
 
+-- IFrame 类型
+UPDATE `sys_menu` SET `component` = 'FrameView', `query_param` = '{"url":"https://ruoyi.xlsea.cn/admin/"}', `is_frame` = 2, `icon` = 'bx:bxl-spring-boot', `menu_name` = 'menu.monitor_admin' WHERE `menu_id` = 1761400000000000117;
+UPDATE `sys_menu` SET `component` = 'FrameView', `query_param` = '{"url":"https://preview.snailjob.opensnail.com/"}', `is_frame` = 2, `icon` = 'gridicons:scheduled', `menu_name` = 'menu.monitor_snail-job' WHERE `menu_id` = 1761400000000000120;
+-- 外链类型
+
+-- plus-ui 需要禁用的页面
+UPDATE `sys_menu` SET `status` = '1' WHERE `menu_id` IN (1761400000000000116, 1761400000000000130, 1761400000000000131);
+
+-- 修改字典数据表的 list_class 字段，将 danger 改为 error
+UPDATE `sys_dict_data` SET `list_class` = 'error' WHERE `list_class` = 'danger';
+
+-- 字典适配多语言
+UPDATE `sys_dict_data` SET `dict_label` = 'dict.sys_user_sex.male', `dict_type` = 'sys_user_sex' WHERE `dict_code` = 1;
+UPDATE `sys_dict_data` SET `dict_label` = 'dict.sys_user_sex.female', `dict_type` = 'sys_user_sex' WHERE `dict_code` = 2;
+UPDATE `sys_dict_data` SET `dict_label` = 'dict.sys_user_sex.unknown', `dict_type` = 'sys_user_sex' WHERE `dict_code` = 3;
+UPDATE `sys_dict_data` SET `dict_label` = 'dict.sys_show_hide.show', `dict_type` = 'sys_show_hide' WHERE `dict_code` = 4;
+UPDATE `sys_dict_data` SET `dict_label` = 'dict.sys_show_hide.hide', `dict_type` = 'sys_show_hide' WHERE `dict_code` = 5;
+UPDATE `sys_dict_data` SET `dict_label` = 'dict.sys_normal_disable.normal', `dict_type` = 'sys_normal_disable' WHERE `dict_code` = 6;
+UPDATE `sys_dict_data` SET `dict_label` = 'dict.sys_normal_disable.disable', `dict_type` = 'sys_normal_disable' WHERE `dict_code` = 7;
+UPDATE `sys_dict_data` SET `dict_label` = 'dict.sys_yes_no.yes', `dict_type` = 'sys_yes_no' WHERE `dict_code` = 12;
+UPDATE `sys_dict_data` SET `dict_label` = 'dict.sys_yes_no.no', `dict_type` = 'sys_yes_no' WHERE `dict_code` = 13;
+UPDATE `sys_dict_data` SET `dict_label` = 'dict.sys_notice_type.notice', `dict_type` = 'sys_notice_type' WHERE `dict_code` = 14;
+UPDATE `sys_dict_data` SET `dict_label` = 'dict.sys_notice_type.announcement', `dict_type` = 'sys_notice_type' WHERE `dict_code` = 15;
+UPDATE `sys_dict_data` SET `dict_label` = 'dict.sys_notice_status.normal', `dict_type` = 'sys_notice_status' WHERE `dict_code` = 16;
+UPDATE `sys_dict_data` SET `dict_label` = 'dict.sys_notice_status.close', `dict_type` = 'sys_notice_status' WHERE `dict_code` = 17;
+UPDATE `sys_dict_data` SET `dict_label` = 'dict.sys_oper_type.insert', `dict_type` = 'sys_oper_type' WHERE `dict_code` = 18;
+UPDATE `sys_dict_data` SET `dict_label` = 'dict.sys_oper_type.update', `dict_type` = 'sys_oper_type' WHERE `dict_code` = 19;
+UPDATE `sys_dict_data` SET `dict_label` = 'dict.sys_oper_type.delete', `dict_type` = 'sys_oper_type' WHERE `dict_code` = 20;
+UPDATE `sys_dict_data` SET `dict_label` = 'dict.sys_oper_type.grant', `dict_type` = 'sys_oper_type' WHERE `dict_code` = 21;
+UPDATE `sys_dict_data` SET `dict_label` = 'dict.sys_oper_type.export', `dict_type` = 'sys_oper_type' WHERE `dict_code` = 22;
+UPDATE `sys_dict_data` SET `dict_label` = 'dict.sys_oper_type.import', `dict_type` = 'sys_oper_type' WHERE `dict_code` = 23;
+UPDATE `sys_dict_data` SET `dict_label` = 'dict.sys_oper_type.force', `dict_type` = 'sys_oper_type' WHERE `dict_code` = 24;
+UPDATE `sys_dict_data` SET `dict_label` = 'dict.sys_oper_type.gencode', `dict_type` = 'sys_oper_type' WHERE `dict_code` = 25;
+UPDATE `sys_dict_data` SET `dict_label` = 'dict.sys_oper_type.clean', `dict_type` = 'sys_oper_type' WHERE `dict_code` = 26;
+UPDATE `sys_dict_data` SET `dict_label` = 'dict.sys_common_status.success', `dict_type` = 'sys_common_status' WHERE `dict_code` = 27;
+UPDATE `sys_dict_data` SET `dict_label` = 'dict.sys_common_status.fail', `dict_type` = 'sys_common_status' WHERE `dict_code` = 28;
+UPDATE `sys_dict_data` SET `dict_label` = 'dict.sys_oper_type.other', `dict_type` = 'sys_oper_type' WHERE `dict_code` = 29;
+UPDATE `sys_dict_data` SET `dict_label` = 'dict.sys_grant_type.password', `dict_type` = 'sys_grant_type' WHERE `dict_code` = 30;
+UPDATE `sys_dict_data` SET `dict_label` = 'dict.sys_grant_type.sms', `dict_type` = 'sys_grant_type' WHERE `dict_code` = 31;
+UPDATE `sys_dict_data` SET `dict_label` = 'dict.sys_grant_type.email', `dict_type` = 'sys_grant_type' WHERE `dict_code` = 32;
+UPDATE `sys_dict_data` SET `dict_label` = 'dict.sys_grant_type.miniapp', `dict_type` = 'sys_grant_type' WHERE `dict_code` = 33;
+UPDATE `sys_dict_data` SET `dict_label` = 'dict.sys_grant_type.social', `dict_type` = 'sys_grant_type' WHERE `dict_code` = 34;
+UPDATE `sys_dict_data` SET `dict_label` = 'dict.sys_device_type.pc', `dict_type` = 'sys_device_type' WHERE `dict_code` = 35;
+UPDATE `sys_dict_data` SET `dict_label` = 'dict.sys_device_type.android', `dict_type` = 'sys_device_type' WHERE `dict_code` = 36;
+UPDATE `sys_dict_data` SET `dict_label` = 'dict.sys_device_type.ios', `dict_type` = 'sys_device_type' WHERE `dict_code` = 37;
+UPDATE `sys_dict_data` SET `dict_label` = 'dict.sys_device_type.miniapp', `dict_type` = 'sys_device_type' WHERE `dict_code` = 38;
+UPDATE `sys_dict_data` SET `dict_label` = 'dict.wf_business_status.revoked', `dict_type` = 'wf_business_status' WHERE `dict_code` = 39;
+UPDATE `sys_dict_data` SET `dict_label` = 'dict.wf_business_status.draft', `dict_type` = 'wf_business_status' WHERE `dict_code` = 40;
+UPDATE `sys_dict_data` SET `dict_label` = 'dict.wf_business_status.pending', `dict_type` = 'wf_business_status' WHERE `dict_code` = 41;
+UPDATE `sys_dict_data` SET `dict_label` = 'dict.wf_business_status.completed', `dict_type` = 'wf_business_status' WHERE `dict_code` = 42;
+UPDATE `sys_dict_data` SET `dict_label` = 'dict.wf_business_status.cancelled', `dict_type` = 'wf_business_status' WHERE `dict_code` = 43;
+UPDATE `sys_dict_data` SET `dict_label` = 'dict.wf_business_status.returned', `dict_type` = 'wf_business_status' WHERE `dict_code` = 44;
+UPDATE `sys_dict_data` SET `dict_label` = 'dict.wf_business_status.terminated', `dict_type` = 'wf_business_status' WHERE `dict_code` = 45;
+UPDATE `sys_dict_data` SET `dict_label` = 'dict.wf_form_type.custom_form', `dict_type` = 'wf_form_type' WHERE `dict_code` = 46;
+UPDATE `sys_dict_data` SET `dict_label` = 'dict.wf_form_type.dynamic_form', `dict_type` = 'wf_form_type' WHERE `dict_code` = 47;
+UPDATE `sys_dict_data` SET `dict_label` = 'dict.wf_task_status.revoke', `dict_type` = 'wf_task_status' WHERE `dict_code` = 48;
+UPDATE `sys_dict_data` SET `dict_label` = 'dict.wf_task_status.pass', `dict_type` = 'wf_task_status' WHERE `dict_code` = 49;
+UPDATE `sys_dict_data` SET `dict_label` = 'dict.wf_task_status.pending_review', `dict_type` = 'wf_task_status' WHERE `dict_code` = 50;
+UPDATE `sys_dict_data` SET `dict_label` = 'dict.wf_task_status.cancel', `dict_type` = 'wf_task_status' WHERE `dict_code` = 51;
+UPDATE `sys_dict_data` SET `dict_label` = 'dict.wf_task_status.return', `dict_type` = 'wf_task_status' WHERE `dict_code` = 52;
+UPDATE `sys_dict_data` SET `dict_label` = 'dict.wf_task_status.terminate', `dict_type` = 'wf_task_status' WHERE `dict_code` = 53;
+UPDATE `sys_dict_data` SET `dict_label` = 'dict.wf_task_status.transfer', `dict_type` = 'wf_task_status' WHERE `dict_code` = 54;
+UPDATE `sys_dict_data` SET `dict_label` = 'dict.wf_task_status.delegate', `dict_type` = 'wf_task_status' WHERE `dict_code` = 55;
+UPDATE `sys_dict_data` SET `dict_label` = 'dict.wf_task_status.copy', `dict_type` = 'wf_task_status' WHERE `dict_code` = 56;
+UPDATE `sys_dict_data` SET `dict_label` = 'dict.wf_task_status.add_sign', `dict_type` = 'wf_task_status' WHERE `dict_code` = 57;
+UPDATE `sys_dict_data` SET `dict_label` = 'dict.wf_task_status.minus_sign', `dict_type` = 'wf_task_status' WHERE `dict_code` = 58;
+UPDATE `sys_dict_data` SET `dict_label` = 'dict.wf_task_status.timeout', `dict_type` = 'wf_task_status' WHERE `dict_code` = 59;

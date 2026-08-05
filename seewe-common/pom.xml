@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>seewe-admin</artifactId>
+        <groupId>org.dromara</groupId>
+        <version>${revision}</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>seewe-common</artifactId>
+    <packaging>pom</packaging>
+
+    <description>
+        common 通用模块
+    </description>
+
+    <modules>
+        <module>seewe-common-bom</module>
+        <module>seewe-common-social</module>
+        <module>seewe-common-core</module>
+        <module>seewe-common-doc</module>
+        <module>seewe-common-excel</module>
+        <module>seewe-common-job</module>
+        <module>seewe-common-log</module>
+        <module>seewe-common-mail</module>
+        <module>seewe-common-mybatis</module>
+        <module>seewe-common-oss</module>
+        <module>seewe-common-redis</module>
+        <module>seewe-common-satoken</module>
+        <module>seewe-common-security</module>
+        <module>seewe-common-sms</module>
+        <module>seewe-common-elasticsearch</module>
+        <module>seewe-common-web</module>
+        <module>seewe-common-translation</module>
+        <module>seewe-common-sensitive</module>
+        <module>seewe-common-json</module>
+        <module>seewe-common-encrypt</module>
+        <module>seewe-common-push</module>
+        <module>seewe-common-liteflow</module>
+        <module>seewe-common-mqtt</module>
+        <module>seewe-common-ai</module>
+        <module>seewe-common-mcp</module>
+    </modules>
+
+</project>

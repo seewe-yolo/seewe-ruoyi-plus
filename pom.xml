@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.dromara</groupId>
-    <artifactId>ruoyi-vue-plus</artifactId>
+    <artifactId>seewe-admin</artifactId>
     <version>${revision}</version>
 
     <name>RuoYi-Vue-Plus</name>
@@ -158,7 +158,7 @@
             <!-- common 的依赖配置-->
             <dependency>
                 <groupId>org.dromara</groupId>
-                <artifactId>ruoyi-common-bom</artifactId>
+                <artifactId>seewe-common-bom</artifactId>
                 <version>${revision}</version>
                 <type>pom</type>
                 <scope>import</scope>
@@ -411,49 +411,49 @@
             <!-- 系统模块 -->
             <dependency>
                 <groupId>org.dromara</groupId>
-                <artifactId>ruoyi-system</artifactId>
+                <artifactId>seewe-system</artifactId>
                 <version>${revision}</version>
             </dependency>
 
             <!-- 调度任务模块 -->
             <dependency>
                 <groupId>org.dromara</groupId>
-                <artifactId>ruoyi-job</artifactId>
+                <artifactId>seewe-job</artifactId>
                 <version>${revision}</version>
             </dependency>
 
             <!-- AI业务模块 -->
             <dependency>
                 <groupId>org.dromara</groupId>
-                <artifactId>ruoyi-ai</artifactId>
+                <artifactId>seewe-ai</artifactId>
                 <version>${revision}</version>
             </dependency>
 
             <!-- 代码生成模块 -->
             <dependency>
                 <groupId>org.dromara</groupId>
-                <artifactId>ruoyi-gen</artifactId>
+                <artifactId>seewe-gen</artifactId>
                 <version>${revision}</version>
             </dependency>
 
             <!-- demo模块 -->
             <dependency>
                 <groupId>org.dromara</groupId>
-                <artifactId>ruoyi-demo</artifactId>
+                <artifactId>seewe-demo</artifactId>
                 <version>${revision}</version>
             </dependency>
 
             <!--  工作流模块  -->
             <dependency>
                 <groupId>org.dromara</groupId>
-                <artifactId>ruoyi-workflow</artifactId>
+                <artifactId>seewe-workflow</artifactId>
                 <version>${revision}</version>
             </dependency>
 
             <!--  api模块  -->
             <dependency>
                 <groupId>org.dromara</groupId>
-                <artifactId>ruoyi-api</artifactId>
+                <artifactId>seewe-api</artifactId>
                 <version>${revision}</version>
             </dependency>
 
@@ -462,15 +462,15 @@
 
     <modules>
         <!-- web服务入口 -->
-        <module>ruoyi-admin</module>
+        <module>seewe-server</module>
         <!-- common 通用模块 -->
-        <module>ruoyi-common</module>
+        <module>seewe-common</module>
         <!-- 扩展模块 -->
-        <module>ruoyi-extend</module>
+        <module>seewe-extend</module>
         <!-- 业务模块 -->
-        <module>ruoyi-modules</module>
+        <module>seewe-modules</module>
         <!-- api模块 -->
-        <module>ruoyi-api</module>
+        <module>seewe-api</module>
     </modules>
     <packaging>pom</packaging>
 

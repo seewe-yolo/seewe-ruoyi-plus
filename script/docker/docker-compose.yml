@@ -96,9 +96,9 @@ services:
     privileged: true
     network_mode: "host"
 
-  ruoyi-server1:
-    image: ruoyi/ruoyi-server:6.0.0
-    container_name: ruoyi-server1
+  seewe-server1:
+    image: seewe/seewe-server:6.0.0
+    container_name: seewe-server1
     environment:
       # 时区上海
       TZ: Asia/Shanghai
@@ -113,9 +113,9 @@ services:
     privileged: true
     network_mode: "host"
 
-  ruoyi-server2:
-    image: ruoyi/ruoyi-server:6.0.0
-    container_name: ruoyi-server2
+  seewe-server2:
+    image: seewe/seewe-server:6.0.0
+    container_name: seewe-server2
     environment:
       # 时区上海
       TZ: Asia/Shanghai
@@ -130,9 +130,9 @@ services:
     privileged: true
     network_mode: "host"
 
-  ruoyi-monitor-admin:
-    image: ruoyi/ruoyi-monitor-admin:6.0.0
-    container_name: ruoyi-monitor-admin
+  seewe-monitor-admin:
+    image: seewe/seewe-monitor-admin:6.0.0
+    container_name: seewe-monitor-admin
     environment:
       # 时区上海
       TZ: Asia/Shanghai
@@ -142,9 +142,9 @@ services:
     privileged: true
     network_mode: "host"
 
-  ruoyi-snailjob-server:
-    image: ruoyi/ruoyi-snailjob-server:6.0.0
-    container_name: ruoyi-snailjob-server
+  seewe-snailjob-server:
+    image: seewe/seewe-snailjob-server:6.0.0
+    container_name: seewe-snailjob-server
     environment:
       # 时区上海
       TZ: Asia/Shanghai
@@ -156,9 +156,9 @@ services:
     privileged: true
     network_mode: "host"
 
-  ruoyi-snailai-server:
-    image: ruoyi/ruoyi-snailai-server:6.0.0
-    container_name: ruoyi-snailai-server
+  seewe-snailai-server:
+    image: seewe/seewe-snailai-server:6.0.0
+    container_name: seewe-snailai-server
     environment:
       # 时区上海
       TZ: Asia/Shanghai

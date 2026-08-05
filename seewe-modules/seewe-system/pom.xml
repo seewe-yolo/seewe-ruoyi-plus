@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>org.dromara</groupId>
+        <artifactId>seewe-modules</artifactId>
+        <version>${revision}</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>seewe-system</artifactId>
+
+    <description>
+        system系统模块
+    </description>
+
+    <dependencies>
+        <!-- 通用工具-->
+        <dependency>
+            <groupId>org.dromara</groupId>
+            <artifactId>seewe-common-core</artifactId>
+        </dependency>
+
+        <!-- api模块 -->
+        <dependency>
+            <groupId>org.dromara</groupId>
+            <artifactId>seewe-api</artifactId>
+        </dependency>
+
+        <!-- 接口模块 -->
+        <dependency>
+            <groupId>org.dromara</groupId>
+            <artifactId>seewe-common-doc</artifactId>
+        </dependency>
+
+        <!-- 数据库服务 -->
+        <dependency>
+            <groupId>org.dromara</groupId>
+            <artifactId>seewe-common-mybatis</artifactId>
+        </dependency>
+
+        <!-- 翻译模块 -->
+        <dependency>
+            <groupId>org.dromara</groupId>
+            <artifactId>seewe-common-translation</artifactId>
+        </dependency>
+
+        <!-- OSS功能模块 -->
+        <dependency>
+            <groupId>org.dromara</groupId>
+            <artifactId>seewe-common-oss</artifactId>
+        </dependency>
+
+        <!-- 日志记录 -->
+        <dependency>
+            <groupId>org.dromara</groupId>
+            <artifactId>seewe-common-log</artifactId>
+        </dependency>
+
+        <!-- excel-->
+        <dependency>
+            <groupId>org.dromara</groupId>
+            <artifactId>seewe-common-excel</artifactId>
+        </dependency>
+
+        <!-- SMS功能模块 -->
+        <dependency>
+            <groupId>org.dromara</groupId>
+            <artifactId>seewe-common-sms</artifactId>
+        </dependency>
+
+        <!-- 安全模块 -->
+        <dependency>
+            <groupId>org.dromara</groupId>
+            <artifactId>seewe-common-security</artifactId>
+        </dependency>
+
+        <!-- web服务 -->
+        <dependency>
+            <groupId>org.dromara</groupId>
+            <artifactId>seewe-common-web</artifactId>
+        </dependency>
+
+        <!-- 脱敏模块 -->
+        <dependency>
+            <groupId>org.dromara</groupId>
+            <artifactId>seewe-common-sensitive</artifactId>
+        </dependency>
+
+        <!-- 数据库加解密模块 -->
+        <dependency>
+            <groupId>org.dromara</groupId>
+            <artifactId>seewe-common-encrypt</artifactId>
+        </dependency>
+
+        <!-- 消息推送模块 -->
+        <dependency>
+            <groupId>org.dromara</groupId>
+            <artifactId>seewe-common-push</artifactId>
+        </dependency>
+
+    </dependencies>
+
+</project>
