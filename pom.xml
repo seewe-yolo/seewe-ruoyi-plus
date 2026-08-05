@@ -5,12 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.dromara</groupId>
-    <artifactId>seewe-admin</artifactId>
+    <artifactId>seewe-ruoyi-plus</artifactId>
     <version>${revision}</version>
 
-    <name>RuoYi-Vue-Plus</name>
+    <name>seewe-ruoyi-plus</name>
     <url>https://gitee.com/dromara/RuoYi-Vue-Plus</url>
-    <description>Dromara RuoYi-Vue-Plus后台管理系统</description>
+    <description>基于Dromara RuoYi-Vue-Plus后台管理系统</description>
 
     <properties>
         <!-- 项目基础配置 -->

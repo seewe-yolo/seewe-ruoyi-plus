@@ -100,9 +100,9 @@ spring:
           driverClassName: com.mysql.cj.jdbc.Driver
           # jdbc 所有参数配置参考 https://lionli.blog.csdn.net/article/details/122018562
           # rewriteBatchedStatements=true 批处理优化 大幅提升批量插入更新删除性能(对数据库有性能损耗 使用批量操作应考虑性能问题)
-          url: jdbc:mysql://117.157.85.156:53306/seewe_ry?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8&autoReconnect=true&rewriteBatchedStatements=true&allowPublicKeyRetrieval=true&nullCatalogMeansCurrent=true
+          url: jdbc:mysql://localhost:3306/seewe_ry?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8&autoReconnect=true&rewriteBatchedStatements=true&allowPublicKeyRetrieval=true&nullCatalogMeansCurrent=true
           username: root
-          password: seewe@123
+          password: root@123
 #        # 从库数据源
 #        slave:
 #          lazy: true
@@ -149,13 +149,13 @@ spring:
 spring.data:
   redis:
     # 地址
-    host: 117.157.85.156
+    host: localhost
     # 端口，默认为6379
-    port: 56379
+    port: 6379
     # 数据库索引
     database: 10
     # redis 密码必须配置
-    password: seewe@123
+    password: root@123
     # 连接超时时间
     timeout: 10s
     # 是否开启ssl
