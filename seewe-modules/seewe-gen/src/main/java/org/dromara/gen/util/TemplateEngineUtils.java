@@ -4,6 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.lang.Dict;
 import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.template.TemplateConfig;
 import cn.hutool.extra.template.TemplateEngine;
 import cn.hutool.extra.template.TemplateUtil;
@@ -103,8 +104,12 @@ public class TemplateEngineUtils {
         context.put("ClassName", genTable.getClassName());
         context.put("className", StringUtils.uncapitalize(genTable.getClassName()));
         context.put("moduleName", moduleName);
+        context.put("ModuleName", StringUtils.capitalize(moduleName));
+        context.put("moduleNameKebab", StrUtil.toSymbolCase(moduleName, '-'));
         context.put("BusinessName", StringUtils.capitalize(businessName));
         context.put("businessName", businessName);
+        context.put("businessNameKebab", StrUtil.toSymbolCase(businessName, '-'));
+        context.put("businessNameWords", StrUtil.toSymbolCase(businessName, ' '));
         context.put("basePackage", getPackagePrefix(packageName));
         context.put("packageName", packageName);
         context.put("author", genTable.getFunctionAuthor());
@@ -275,7 +280,7 @@ public class TemplateEngineUtils {
      * @return 模板列表
      */
     public static List<PathNamedTemplate> getTemplateList(String tplCategory, String dsName) {
-        return getTemplateList(tplCategory, dsName, GenConstants.FRONTEND_TYPE_VUE);
+        return getTemplateList(tplCategory, dsName, GenConstants.FRONTEND_TYPE_SOY);
     }
 
     /**
@@ -288,6 +293,7 @@ public class TemplateEngineUtils {
      */
     public static List<PathNamedTemplate> getTemplateList(String tplCategory, String dsName, String frontendType) {
         List<PathNamedTemplate> templates = new ArrayList<>();
+        String resolvedFrontendType = resolveFrontendType(frontendType);
         // 后端源码模板
         templates.add(TEMPLATE_MAPPER.get(GenConstants.JAVA_DOMAIN_TEMPLATE_PATH));
         templates.add(TEMPLATE_MAPPER.get(GenConstants.JAVA_VO_TEMPLATE_PATH));
@@ -299,8 +305,12 @@ public class TemplateEngineUtils {
         // MyBatis MapperXML 模板
         templates.add(TEMPLATE_MAPPER.get(GenConstants.XML_MAPPER_TEMPLATE_PATH));
         // 前端 API 与类型模板
-        templates.add(getTemplate(getFrontendApiTemplatePath(frontendType)));
-        templates.add(getTemplate(getFrontendTypesTemplatePath(frontendType)));
+        templates.add(getTemplate(getFrontendApiTemplatePath(resolvedFrontendType)));
+        templates.add(getTemplate(getFrontendTypesTemplatePath(resolvedFrontendType)));
+        if (GenConstants.FRONTEND_TYPE_SOY.equals(resolvedFrontendType)) {
+            templates.add(getTemplate(getFrontendSearchTemplatePath(resolvedFrontendType)));
+            templates.add(getTemplate(getFrontendOperateDrawerTemplatePath(resolvedFrontendType)));
+        }
         // 数据库模板
         DataBaseType dataBaseType = DataBaseHelper.getDataBaseType(dsName);
         if (dataBaseType.isOracle()) {
@@ -315,9 +325,9 @@ public class TemplateEngineUtils {
         }
         // 前端页面模板
         if (GenConstants.TPL_CRUD.equals(tplCategory)) {
-            templates.add(getTemplate(getFrontendIndexTemplatePath(frontendType)));
+            templates.add(getTemplate(getFrontendIndexTemplatePath(resolvedFrontendType)));
         } else if (GenConstants.TPL_TREE.equals(tplCategory)) {
-            templates.add(getTemplate(getFrontendIndexTreeTemplatePath(frontendType)));
+            templates.add(getTemplate(getFrontendIndexTreeTemplatePath(resolvedFrontendType)));
         }
         return templates;
     }
@@ -359,6 +369,9 @@ public class TemplateEngineUtils {
         String mybatisPath = MYBATIS_PATH + "/" + moduleName;
         String frontendPath = getFrontendPath(genTable.getFrontendType());
         String frontendPagePath = getFrontendPagePath(genTable.getFrontendType());
+        boolean soybean = GenConstants.FRONTEND_TYPE_SOY.equals(resolveFrontendType(genTable.getFrontendType()));
+        String moduleNameKebab = StrUtil.toSymbolCase(moduleName, '-');
+        String businessNameKebab = StrUtil.toSymbolCase(businessName, '-');
         // templatePath
         // genFilePathFormat
         if (template.contains("domain.java.")) {
@@ -380,14 +393,26 @@ public class TemplateEngineUtils {
         } else if (template.contains("sql.")) {
             fileName = businessName + "Menu.sql";
         } else if (template.contains("api.ts.")) {
-            fileName = StringUtils.format("{}/api/{}/{}/index.ts", frontendPath, moduleName, businessName);
+            fileName = soybean
+                ? StringUtils.format("{}/service/api/{}/{}.ts", frontendPath, moduleNameKebab, businessNameKebab)
+                : StringUtils.format("{}/api/{}/{}/index.ts", frontendPath, moduleName, businessName);
         } else if (template.contains("types.ts.")) {
-            fileName = StringUtils.format("{}/api/{}/{}/types.ts", frontendPath, moduleName, businessName);
+            fileName = soybean
+                ? StringUtils.format("{}/typings/api/{}.{}.api.d.ts", frontendPath, moduleNameKebab, businessNameKebab)
+                : StringUtils.format("{}/api/{}/{}/types.ts", frontendPath, moduleName, businessName);
+        } else if (template.contains(GenConstants.FRONTEND_SEARCH_TEMPLATE_NAME)) {
+            fileName = StringUtils.format("{}/views/{}/{}/modules/{}-search.vue", frontendPath, moduleNameKebab,
+                businessNameKebab, businessNameKebab);
+        } else if (template.contains(GenConstants.FRONTEND_OPERATE_DRAWER_TEMPLATE_NAME)) {
+            fileName = StringUtils.format("{}/views/{}/{}/modules/{}-operate-drawer.vue", frontendPath,
+                moduleNameKebab, businessNameKebab, businessNameKebab);
         } else if (isFrontendPageTemplate(template, GenConstants.FRONTEND_INDEX_TEMPLATE_PREFIX)) {
-            fileName = StringUtils.format("{}/{}/{}/{}/index.{}", frontendPath, frontendPagePath, moduleName, businessName,
+            fileName = StringUtils.format("{}/{}/{}/{}/index.{}", frontendPath, frontendPagePath,
+                soybean ? moduleNameKebab : moduleName, soybean ? businessNameKebab : businessName,
                 getFrontendPageExtension(template, GenConstants.FRONTEND_INDEX_TEMPLATE_PREFIX));
         } else if (isFrontendPageTemplate(template, GenConstants.FRONTEND_INDEX_TREE_TEMPLATE_PREFIX)) {
-            fileName = StringUtils.format("{}/{}/{}/{}/index.{}", frontendPath, frontendPagePath, moduleName, businessName,
+            fileName = StringUtils.format("{}/{}/{}/{}/index.{}", frontendPath, frontendPagePath,
+                soybean ? moduleNameKebab : moduleName, soybean ? businessNameKebab : businessName,
                 getFrontendPageExtension(template, GenConstants.FRONTEND_INDEX_TREE_TEMPLATE_PREFIX));
         }
         return fileName;
@@ -435,6 +460,14 @@ public class TemplateEngineUtils {
         return getFrontendTemplatePath(frontendType, GenConstants.FRONTEND_TYPES_TEMPLATE_NAME);
     }
 
+    private static String getFrontendSearchTemplatePath(String frontendType) {
+        return getFrontendTemplatePath(frontendType, GenConstants.FRONTEND_SEARCH_TEMPLATE_NAME);
+    }
+
+    private static String getFrontendOperateDrawerTemplatePath(String frontendType) {
+        return getFrontendTemplatePath(frontendType, GenConstants.FRONTEND_OPERATE_DRAWER_TEMPLATE_NAME);
+    }
+
     private static String getFrontendIndexTemplatePath(String frontendType) {
         return getFrontendPageTemplatePath(frontendType, GenConstants.FRONTEND_INDEX_TEMPLATE_PREFIX);
     }
@@ -450,7 +483,7 @@ public class TemplateEngineUtils {
      * @return 已规范化的模板目录名
      */
     private static String resolveFrontendType(String frontendType) {
-        String type = StringUtils.blankToDefault(frontendType, GenConstants.FRONTEND_TYPE_VUE);
+        String type = StringUtils.blankToDefault(frontendType, GenConstants.FRONTEND_TYPE_SOY);
         if (!type.matches("[A-Za-z0-9_-]+")) {
             throw new ServiceException("前端模板类型仅支持字母、数字、下划线和中划线");
         }

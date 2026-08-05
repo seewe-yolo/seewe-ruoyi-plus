@@ -81,7 +81,7 @@ public interface GenConstants {
     String SORT_FIELD = "sortField";
 
     /**
-     * 默认前端模板类型，对应模板根目录下的 vue 目录。
+     * Vue 前端模板类型，对应模板根目录下的 vue 目录。
      */
     String FRONTEND_TYPE_VUE = "vue";
 
@@ -89,6 +89,11 @@ public interface GenConstants {
      * React 前端模板类型，对应模板根目录下的 react 目录。
      */
     String FRONTEND_TYPE_REACT = "react";
+
+    /**
+     * Soybean Admin 前端模板类型，对应模板根目录下的 soy 目录。
+     */
+    String FRONTEND_TYPE_SOY = "soy";
 
     /**
      * 树根节点值
@@ -292,6 +297,8 @@ public interface GenConstants {
     // 前端源码模板
     String FRONTEND_API_TEMPLATE_NAME = "api.ts" + TEMPLATE_FILE_SUFFIX;
     String FRONTEND_TYPES_TEMPLATE_NAME = "types.ts" + TEMPLATE_FILE_SUFFIX;
+    String FRONTEND_SEARCH_TEMPLATE_NAME = "search.vue" + TEMPLATE_FILE_SUFFIX;
+    String FRONTEND_OPERATE_DRAWER_TEMPLATE_NAME = "operate-drawer.vue" + TEMPLATE_FILE_SUFFIX;
     String FRONTEND_INDEX_TEMPLATE_PREFIX = "index";
     String FRONTEND_INDEX_TREE_TEMPLATE_PREFIX = "index-tree";
     // 数据库SQL模板
