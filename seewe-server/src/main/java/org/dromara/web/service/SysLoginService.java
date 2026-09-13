@@ -6,6 +6,8 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.lang.Opt;
 import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.core.util.RandomUtil;
+import cn.hutool.crypto.digest.BCrypt;
 import com.baomidou.lock.annotation.Lock4j;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +15,9 @@ import lombok.extern.slf4j.Slf4j;
 import me.zhyd.oauth.model.AuthUser;
 import org.dromara.common.core.constant.CacheNames;
 import org.dromara.common.core.constant.Constants;
+import org.dromara.common.core.constant.SystemConstants;
 import org.dromara.common.core.enums.LoginType;
+import org.dromara.common.core.enums.UserType;
 import org.dromara.common.core.exception.ServiceException;
 import org.dromara.common.core.exception.user.UserException;
 import org.dromara.common.core.utils.*;
@@ -26,11 +30,13 @@ import org.dromara.system.api.domain.RoleDTO;
 import org.dromara.system.api.model.LoginUser;
 import org.dromara.system.domain.SysUser;
 import org.dromara.system.domain.bo.SysSocialBo;
+import org.dromara.system.domain.bo.SysUserBo;
 import org.dromara.system.domain.vo.*;
 import org.dromara.system.mapper.SysUserMapper;
 import org.dromara.system.service.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -64,6 +70,7 @@ public class SysLoginService {
     private final ISysRoleService roleService;
     private final ISysDeptService deptService;
     private final ISysPostService postService;
+    private final ISysUserService userService;
     private final SysUserMapper userMapper;
 
 
@@ -103,6 +110,58 @@ public class SysLoginService {
             // 如果要绑定的平台账号已经被绑定过了 是否抛异常自行决断
             // throw new ServiceException("此平台账号已经被绑定!");
         }
+    }
+
+    /**
+     * 小程序用户自动注册并绑定 openid。
+     * <p>账号使用 openid（天然唯一），昵称随机生成，密码随机（不支持密码登录）；
+     * 注册与绑定在同一事务中完成，并发场景由 Lock4j 串行化，避免同一 openid 重复建户。</p>
+     *
+     * @param authUser JustAuth 授权用户（uuid 为 openid，token 中为 session_key）
+     * @return 注册或复用的用户ID
+     */
+    @Lock4j(expire = 6000, acquireTimeout = 3000)
+    @Transactional(rollbackFor = Exception.class)
+    public Long xcxRegisterAndBind(AuthUser authUser) {
+        String openid = authUser.getUuid();
+        String authId = authUser.getSource() + openid;
+        // 双重检查：并发等待期间可能已被其他请求注册绑定
+        List<SysSocialVo> bindList = sysSocialService.selectByAuthId(authId);
+        if (CollUtil.isNotEmpty(bindList)) {
+            return bindList.getFirst().getUserId();
+        }
+        // 复用同名历史账号（如早期未绑定 openid 的数据），避免重复建户
+        SysUserVo user = userService.selectUserByUserName(openid);
+        Long userId;
+        String nickName;
+        if (ObjectUtil.isNotNull(user)) {
+            userId = user.getUserId();
+            nickName = user.getNickName();
+        } else {
+            SysUserBo newUser = new SysUserBo();
+            newUser.setUserName(openid);
+            newUser.setNickName("微信用户" + RandomUtil.randomString(6));
+            newUser.setUserType(UserType.APP_USER.getUserType());
+            newUser.setPassword(BCrypt.hashpw(RandomUtil.randomString(32)));
+            newUser.setStatus(SystemConstants.NORMAL);
+            if (!userService.registerUser(newUser)) {
+                throw new ServiceException("小程序用户注册失败");
+            }
+            userId = userService.selectUserByUserName(openid).getUserId();
+            nickName = newUser.getNickName();
+        }
+        // 绑定 openid 与用户（sys_social.access_token 非空约束，存入 session_key）
+        SysSocialBo social = new SysSocialBo();
+        social.setAuthId(authId);
+        social.setSource(authUser.getSource());
+        social.setOpenId(openid);
+        social.setUserId(userId);
+        social.setUserName(openid);
+        social.setNickName(nickName);
+        social.setAccessToken(StringUtils.blankToDefault(authUser.getToken().getAccessToken(), ""));
+        social.setUnionId(authUser.getToken().getUnionId());
+        sysSocialService.insertByBo(social);
+        return userId;
     }
 
 

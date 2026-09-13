@@ -42,6 +42,16 @@ user:
     # 密码锁定时间（默认10分钟）
     lockTime: 10
 
+# 社交登录配置（JustAuth）。小程序登录的 appid/secret 优先读取 sys_config（wx.miniapp.appid / wx.miniapp.secret），
+# 未配置时降级使用本配置
+justauth:
+  type:
+    WECHAT_MINI_PROGRAM:
+      # 小程序 appid
+      client-id: ${WX_MINIAPP_ID:}
+      # 小程序 appsecret，请通过环境变量注入，不要提交明文
+      client-secret: ${WX_MINIAPP_SECRET:}
+
 # Spring配置
 spring:
   application:

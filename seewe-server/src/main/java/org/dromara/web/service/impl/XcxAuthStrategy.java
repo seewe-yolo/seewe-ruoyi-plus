@@ -2,29 +2,39 @@ package org.dromara.web.service.impl;
 
 import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.stp.parameter.SaLoginParameter;
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjectUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.zhyd.oauth.config.AuthConfig;
+import me.zhyd.oauth.config.AuthDefaultSource;
 import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthResponse;
-import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.request.AuthRequest;
 import me.zhyd.oauth.request.AuthWechatMiniProgramRequest;
 import org.dromara.common.core.constant.SystemConstants;
 import org.dromara.common.core.exception.ServiceException;
+import org.dromara.common.core.utils.StringUtils;
 import org.dromara.common.core.utils.ValidatorUtils;
 import org.dromara.common.json.utils.JsonUtils;
 import org.dromara.common.satoken.utils.LoginHelper;
+import org.dromara.common.social.config.properties.SocialLoginConfigProperties;
+import org.dromara.common.social.config.properties.SocialProperties;
 import org.dromara.system.api.model.XcxLoginBody;
 import org.dromara.system.api.model.XcxLoginUser;
 import org.dromara.system.domain.vo.SysClientVo;
+import org.dromara.system.domain.vo.SysSocialVo;
 import org.dromara.system.domain.vo.SysUserVo;
+import org.dromara.system.service.ISysConfigService;
+import org.dromara.system.service.ISysSocialService;
+import org.dromara.system.service.ISysUserService;
 import org.dromara.web.domain.vo.LoginVo;
 import org.dromara.web.service.IAuthStrategy;
 import org.dromara.web.service.SysLoginService;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * 小程序认证策略
@@ -36,10 +46,26 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class XcxAuthStrategy implements IAuthStrategy {
 
+    /**
+     * sys_config 参数键：小程序 appid / appsecret（优先级高于 justauth yml 配置）
+     */
+    private static final String CONFIG_KEY_APPID = "wx.miniapp.appid";
+    private static final String CONFIG_KEY_SECRET = "wx.miniapp.secret";
+
+    /**
+     * justauth yml 中小程序配置的键（sys_config 未配置时降级使用）
+     */
+    private static final String JUSTAUTH_SOURCE_KEY = AuthDefaultSource.WECHAT_MINI_PROGRAM.name();
+
     private final SysLoginService loginService;
+    private final ISysUserService userService;
+    private final ISysSocialService socialService;
+    private final ISysConfigService configService;
+    private final SocialProperties socialProperties;
 
     /**
      * 执行微信小程序登录，并根据 openid 构建小程序用户登录态。
+     * openid 未绑定用户时自动注册默认用户并完成绑定。
      *
      * @param body   登录请求体
      * @param client 当前客户端配置
@@ -51,27 +77,23 @@ public class XcxAuthStrategy implements IAuthStrategy {
         ValidatorUtils.validate(loginBody);
         // xcxCode 为 小程序调用 wx.login 授权后获取
         String xcxCode = loginBody.getXcxCode();
-        // 多个小程序识别使用
-        String appid = loginBody.getAppid();
+        // appid 与 appsecret 优先取 sys_config，未配置时降级 justauth yml，最后降级请求体中的 appid
 
         // 校验 appid + appsrcret + xcxCode 调用登录凭证校验接口 获取 session_key 与 openid
         AuthRequest authRequest = new AuthWechatMiniProgramRequest(AuthConfig.builder()
-            .clientId(appid).clientSecret("自行填写密钥 可根据不同appid填入不同密钥")
+            .clientId(resolveAppid(loginBody.getAppid())).clientSecret(resolveAppSecret())
             .ignoreCheckRedirectUri(true).ignoreCheckState(true).build());
         AuthCallback authCallback = new AuthCallback();
         authCallback.setCode(xcxCode);
         AuthResponse<AuthUser> resp = authRequest.login(authCallback);
-        String openid, unionId;
-        if (resp.ok()) {
-            AuthToken token = resp.getData().getToken();
-            openid = token.getOpenId();
-            // 微信小程序只有关联到微信开放平台下之后才能获取到 unionId，因此unionId不一定能返回。
-            unionId = token.getUnionId();
-        } else {
+        if (!resp.ok()) {
             throw new ServiceException(resp.getMsg());
         }
+        AuthUser authUser = resp.getData();
+        String openid = authUser.getUuid();
+
         // 框架登录不限制从什么表查询 只要最终构建出 LoginUser 即可
-        SysUserVo user = loadUserByOpenid(openid);
+        SysUserVo user = loadUserByOpenid(authUser);
         // 此处可根据登录用户的数据不同 自行创建 loginUser 属性不够用继承扩展就行了
         XcxLoginUser loginUser = new XcxLoginUser();
         loginUser.setUserId(user.getUserId());
@@ -95,23 +117,71 @@ public class XcxAuthStrategy implements IAuthStrategy {
     }
 
     /**
-     * 按 openid 查询小程序绑定用户。
+     * 按 openid 查询绑定用户，未绑定时自动注册默认用户并绑定。
      *
-     * @param openid 小程序用户唯一标识
+     * @param authUser JustAuth 授权用户（uuid 为 openid）
      * @return 绑定的系统用户信息
      */
-    private SysUserVo loadUserByOpenid(String openid) {
-        // 使用 openid 查询绑定用户 如未绑定用户 则根据业务自行处理 例如 创建默认用户
-        // todo 自行实现 userService.selectUserByOpenid(openid);
-        SysUserVo user = new SysUserVo();
-        if (ObjectUtil.isNull(user)) {
-            log.info("登录用户：{} 不存在.", openid);
-            // todo 用户不存在 业务逻辑自行实现
-        } else if (SystemConstants.DISABLE.equals(user.getStatus())) {
-            log.info("登录用户：{} 已被停用.", openid);
-            // todo 用户已被停用 业务逻辑自行实现
+    private SysUserVo loadUserByOpenid(AuthUser authUser) {
+        String authId = authUser.getSource() + authUser.getUuid();
+        List<SysSocialVo> socials = socialService.selectByAuthId(authId);
+        if (CollUtil.isNotEmpty(socials)) {
+            for (SysSocialVo social : socials) {
+                SysUserVo user = userService.selectUserById(social.getUserId());
+                if (ObjectUtil.isNotNull(user)) {
+                    if (SystemConstants.DISABLE.equals(user.getStatus())) {
+                        throw new ServiceException("登录用户：{} 已被停用.", user.getUserName());
+                    }
+                    return user;
+                }
+            }
         }
-        return user;
+        // 未绑定用户：自动注册默认用户并绑定 openid
+        Long userId = loginService.xcxRegisterAndBind(authUser);
+        return userService.selectUserById(userId);
+    }
+
+    /**
+     * 解析小程序 appid：sys_config → justauth yml → 请求体（多小程序场景由请求体指定）。
+     *
+     * @param bodyAppid 请求体中的 appid
+     * @return 小程序 appid
+     */
+    private String resolveAppid(String bodyAppid) {
+        String configAppid = configService.selectConfigByKey(CONFIG_KEY_APPID);
+        if (StringUtils.isNotBlank(configAppid)) {
+            return configAppid;
+        }
+        SocialLoginConfigProperties config = justAuthConfig();
+        if (config != null && StringUtils.isNotBlank(config.getClientId())) {
+            return config.getClientId();
+        }
+        return bodyAppid;
+    }
+
+    /**
+     * 解析小程序 appsecret：sys_config → justauth yml，均为空时抛出明确错误。
+     *
+     * @return 小程序 appsecret
+     */
+    private String resolveAppSecret() {
+        String configSecret = configService.selectConfigByKey(CONFIG_KEY_SECRET);
+        if (StringUtils.isNotBlank(configSecret)) {
+            return configSecret;
+        }
+        SocialLoginConfigProperties config = justAuthConfig();
+        if (config != null && StringUtils.isNotBlank(config.getClientSecret())) {
+            return config.getClientSecret();
+        }
+        throw new ServiceException("未配置小程序 appsecret：请在 sys_config 配置 wx.miniapp.secret 或 yml justauth.type.WECHAT_MINI_PROGRAM.client-secret");
+    }
+
+    /**
+     * 读取 justauth yml 中小程序的配置，未配置时返回 null。
+     */
+    private SocialLoginConfigProperties justAuthConfig() {
+        return socialProperties.getType() == null
+            ? null : socialProperties.getType().get(JUSTAUTH_SOURCE_KEY);
     }
 
 }

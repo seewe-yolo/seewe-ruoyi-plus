@@ -229,6 +229,8 @@ insert into sys_oss_config values (1761900000000000005, 'image', 'ruoyi', 'ruoyi
 -- ----------------------------
 insert into sys_client values (1762000000000000001, 'e5cd7e4891bf95d1d19206ce24a7b32e', 'pc', 'pc123', 'password,social', 'pc', null, null, 1800, 604800, 0, 0, 1761000000000000103, 1761100000000000001, sysdate(), 1761100000000000001, sysdate());
 insert into sys_client values (1762000000000000002, '428a8310cd442757ae699df5d894f051', 'app', 'app123', 'password,sms,social', 'android', '/app/**', null, 1800, 604800, 0, 0, 1761000000000000103, 1761100000000000001, sysdate(), 1761100000000000001, sysdate());
+-- 小程序客户端：grant_type 需包含 xcx（微信小程序登录）与 password（账号密码登录）
+insert into sys_client values (1762000000000000003, 'f4b7e0a29d6c4815b3e7f1d2a9c60e83', 'xcx', 'xcx123', 'password,xcx', 'xcx', null, null, 1800, 604800, 0, 0, 1761000000000000103, 1761100000000000001, sysdate(), 1761100000000000001, sysdate());
 
 
 
@@ -328,3 +330,4 @@ UPDATE `sys_dict_data` SET `dict_label` = 'dict.wf_task_status.copy', `dict_type
 UPDATE `sys_dict_data` SET `dict_label` = 'dict.wf_task_status.add_sign', `dict_type` = 'wf_task_status' WHERE `dict_code` = 57;
 UPDATE `sys_dict_data` SET `dict_label` = 'dict.wf_task_status.minus_sign', `dict_type` = 'wf_task_status' WHERE `dict_code` = 58;
 UPDATE `sys_dict_data` SET `dict_label` = 'dict.wf_task_status.timeout', `dict_type` = 'wf_task_status' WHERE `dict_code` = 59;
+
