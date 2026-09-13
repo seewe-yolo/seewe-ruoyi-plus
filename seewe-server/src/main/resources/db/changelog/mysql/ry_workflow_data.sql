@@ -108,3 +108,20 @@ INSERT INTO sys_dict_data VALUES (1761600000000000056, 9, '抄送', 'copy', 'wf_
 INSERT INTO sys_dict_data VALUES (1761600000000000057, 10, '加签', 'sign', 'wf_task_status', '', 'primary', 'N', 1761000000000000103, 1761100000000000001, sysdate(), NULL, NULL, '加签');
 INSERT INTO sys_dict_data VALUES (1761600000000000058, 11, '减签', 'sign_off', 'wf_task_status', '', 'danger', 'N', 1761000000000000103, 1761100000000000001, sysdate(), NULL, NULL, '减签');
 INSERT INTO sys_dict_data VALUES (1761600000000000059, 11, '超时', 'timeout', 'wf_task_status', '', 'danger', 'N', 1761000000000000103, 1761100000000000001, sysdate(), NULL, NULL, '超时');
+
+-- 工作流菜单适配（管理端 route.* 命名，须在本文件菜单插入之后执行）
+UPDATE sys_menu SET status = '0', component = 'Layout', icon = 'hugeicons:flow-square' WHERE menu_id = 1761400000000011616;
+UPDATE sys_menu SET status = '0', component = 'Layout', icon = 'fluent:notepad-person-16-regular' WHERE menu_id = 1761400000000011618;
+UPDATE sys_menu SET path = 'task-waiting', component = 'workflow/task/task-waiting/index', icon = 'ri:todo-line' WHERE menu_id = 1761400000000011619;
+UPDATE sys_menu SET path = 'process-definition', component = 'workflow/process-definition/index', icon = 'weui:setting-outlined' WHERE menu_id = 1761400000000011620;
+UPDATE sys_menu SET path = 'process-instance', component = 'workflow/process-instance/index', icon = 'ri:instance-line' WHERE menu_id = 1761400000000011621;
+UPDATE sys_menu SET icon = 'carbon:category' WHERE menu_id = 1761400000000011622;
+UPDATE sys_menu SET path = 'my-document', component = 'workflow/task/my-document/index', icon = 'hugeicons:start-up-02' WHERE menu_id = 1761400000000011629;
+UPDATE sys_menu SET component = 'Layout', icon = 'lucide:monitor-cog' WHERE menu_id = 1761400000000011630;
+UPDATE sys_menu SET path = 'all-task-waiting', component = 'workflow/task/all-task-waiting/index', icon = 'ri:todo-line' WHERE menu_id = 1761400000000011631;
+UPDATE sys_menu SET path = 'task-finish', component = 'workflow/task/task-finish/index', icon = 'hugeicons:task-done-01' WHERE menu_id = 1761400000000011632;
+UPDATE sys_menu SET path = 'task-copy', component = 'workflow/task/task-copy/index', icon = 'mynaui:copy' WHERE menu_id = 1761400000000011633;
+UPDATE sys_menu SET parent_id = 1761400000000011616, path = 'leave', component = 'workflow/leave/index', icon = 'ic:twotone-time-to-leave', status = '0' WHERE menu_id = 1761400000000011638;
+UPDATE sys_menu SET path = 'design', component = 'workflow/design/index', icon = 'material-symbols:design-services-outline', status = '0' WHERE menu_id = 1761400000000011700;
+UPDATE sys_menu SET status = '1' WHERE menu_id = 1761400000000011701;
+UPDATE sys_menu SET icon = 'material-symbols:regular-expression-rounded' WHERE menu_id = 1761400000000011801;

@@ -4,17 +4,18 @@
 
 - `mysql`：核心、任务调度、工作流和 AI 的 `*_table.sql`、`*_data.sql`。
 - `postgresql`：核心、任务调度、工作流和 AI 的 `*_table.sql`、`*_data.sql`。
-- `oracle`：核心、任务调度和工作流的 `*_table.sql`、`*_data.sql`。
-- `sqlserver`：核心、任务调度和工作流的 `*_table.sql`、`*_data.sql`，使用 `GO` 作为语句分隔符。
 
 已有数据库检测到对应的基础表时会将初始化结构和数据变更标记为已执行，不会重复建表或导入初始化数据。全新数据库会先执行 `*_table.sql`，再执行 `*_data.sql`，并创建 `DATABASECHANGELOG`、`DATABASECHANGELOGLOCK` 和项目表。
 
-后续结构或数据变更请新增文件到当前启用数据库的 `changes` 目录，不要修改已执行的初始化 SQL。文件使用 Liquibase formatted SQL，例如：
+后续 insert / update 等数据变更：直接追加到所属模块 SQL 文件中对应表的语句之后（与表初始化语句同处一个 changeset 内），不新增 changeset 块、不新增文件。仅当变更依赖其他模块的执行顺序（如适配另一模块写入的数据）或需要独立 precondition 保护时，才在文件末尾新增 changeset。changeset 使用 Liquibase formatted SQL，例如：
 
 ```sql
---liquibase formatted sql
---changeset seewe:20260805-01-add-user-index dbms:mysql
+--changeset seewe:20260913-02-add-user-index
+--preconditions onFail:MARK_RAN
+--precondition-sql-check expectedResult:0 SELECT COUNT(*) FROM information_schema.statistics WHERE table_schema = DATABASE() AND table_name = 'sys_user' AND index_name = 'idx_sys_user_status'
 CREATE INDEX idx_sys_user_status ON sys_user(status);
 ```
 
-文件名按 `VyyyyMMddHHmm__description.sql` 命名。当前启用数据库目录由 `includeAll` 自动加载其中的 formatted SQL；每个 changeset 必须写明对应的 `dbms`，避免执行错误方言。
+- changeset id 按 `yyyyMMdd-序号-描述` 命名，作者固定 `seewe`；
+- 涉及多种数据库的变更需在对应数据库的模块 SQL 中各写一份，并写明 `dbms`（如 `dbms:mysql`），避免执行错误方言；
+- 幂等性由 precondition 保证，确保清库重跑或已有库增量执行都安全。
