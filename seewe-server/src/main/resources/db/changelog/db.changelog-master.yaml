@@ -7,10 +7,10 @@ databaseChangeLog:
       file: db/changelog/mysql/ry_vue_data.sql
 
   # Job scheduling module. Comment both entries to remove its tables and menu.
-  - include:
-      file: db/changelog/mysql/ry_job_table.sql
-  - include:
-      file: db/changelog/mysql/ry_job_data.sql
+#  - include:
+#      file: db/changelog/mysql/ry_job_table.sql
+#  - include:
+#      file: db/changelog/mysql/ry_job_data.sql
 
   # Workflow module. Comment both entries to remove its tables and menu.
   - include:
@@ -23,10 +23,6 @@ databaseChangeLog:
 #      file: db/changelog/mysql/ry_ai_table.sql
 #  - include:
 #      file: db/changelog/mysql/ry_ai_data.sql
-  - includeAll:
-      path: db/changelog/mysql/changes
-      relativeToChangelogFile: false
-      errorIfMissingOrEmpty: false
 
   # PostgreSQL
   # Comment or uncomment every module's table/data pair together.
@@ -46,45 +42,3 @@ databaseChangeLog:
   #     file: db/changelog/postgresql/postgres_ry_ai_table.sql
   # - include:
   #     file: db/changelog/postgresql/postgres_ry_ai_data.sql
-  # - includeAll:
-  #     path: db/changelog/postgresql/changes
-  #     relativeToChangelogFile: false
-  #     errorIfMissingOrEmpty: false
-
-  # Oracle
-  # Comment or uncomment every module's table/data pair together.
-  # - include:
-  #     file: db/changelog/oracle/oracle_ry_vue_table.sql
-  # - include:
-  #     file: db/changelog/oracle/oracle_ry_vue_data.sql
-  # - include:
-  #     file: db/changelog/oracle/oracle_ry_job_table.sql
-  # - include:
-  #     file: db/changelog/oracle/oracle_ry_job_data.sql
-  # - include:
-  #     file: db/changelog/oracle/oracle_ry_workflow_table.sql
-  # - include:
-  #     file: db/changelog/oracle/oracle_ry_workflow_data.sql
-  # - includeAll:
-  #     path: db/changelog/oracle/changes
-  #     relativeToChangelogFile: false
-  #     errorIfMissingOrEmpty: false
-
-  # SQL Server
-  # Comment or uncomment every module's table/data pair together.
-  # - include:
-  #     file: db/changelog/sqlserver/sqlserver_ry_vue_table.sql
-  # - include:
-  #     file: db/changelog/sqlserver/sqlserver_ry_vue_data.sql
-  # - include:
-  #     file: db/changelog/sqlserver/sqlserver_ry_job_table.sql
-  # - include:
-  #     file: db/changelog/sqlserver/sqlserver_ry_job_data.sql
-  # - include:
-  #     file: db/changelog/sqlserver/sqlserver_ry_workflow_table.sql
-  # - include:
-  #     file: db/changelog/sqlserver/sqlserver_ry_workflow_data.sql
-  # - includeAll:
-  #     path: db/changelog/sqlserver/changes
-  #     relativeToChangelogFile: false
-  #     errorIfMissingOrEmpty: false
